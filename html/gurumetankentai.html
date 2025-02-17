@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おすすめ料理店 10選</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff8e1;
+      /* 暖色系 */
+    }
+  </style>
+  <header>
+    <style>
+      header {
+        background-color: #ffcc80;
+        color: #333;
+        text-align: center;
+        padding: 1rem;
+      }
+    </style>
+
+    <style>
+      .border {
+        border: 5px solid #333132;
+        padding: 5px;
+        background: #fff;
+        border-radius: 15px;
+      }
+    </style>
+    <style>
+      h1 {
+        margin: 0;
+      }
+    </style>
+    <h1>東京電子周辺おすすめグルメ 10選</h1>
+  </header>
+
+  <main>
+    <style>
+      body {
+        text-align: center;
+      }
+
+      #slider {
+        overflow: hidden;
+        width: 100%;
+        margin: 10px auto;
+        padding: 0;
+        position: relative;
+        height: 0;
+        padding-bottom: 56.25%;
+        /* アスペクト比の設定 */
+      }
+
+      #photos {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 300%;
+        display: flex;
+        transition: transform 1s ease;
+        position: relative;
+      }
+
+      #photos li {
+        width: 100%;
+        position: relative;
+      }
+
+      #photos li img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      @media screen and (max-width: 560px) {
+        #slider {
+          height: 300px;
+          padding-bottom: 0;
+        }
+
+        #photos li {
+          height: 100%;
+        }
+      }
+    </style>
+
+    <body>
+      <div id="slider">
+        <ul id="photos">
+          <li><img src="店舗写真/店舗写真/mamiana1.jpg" alt="Sample1"></li>
+          <li><img src="店舗写真/店舗写真/no181.jpg" alt="Sample2"></li>
+          <li><img src="店舗写真/店舗写真/kohitei3.jpg" alt="Sample3"></li>
+        </ul>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          //ボタン（トップへ）のクリックイベント
+          $('#btn').click(function () {
+            //ページ全体を一番上にスクロール
+            $('html, body').animate({
+              scrollTop: 0
+            }, 'slow'); //'slow'はアニメーションのスピード
+          });
+
+          //画像スライドの処理
+          var $photos = $('#photos'),
+            $lis = $('#photos li');
+
+          //画像のスライドアニメーションの間隔
+          var slideInterval = 3000;
+
+          //スライドの幅（初期設定）
+          var li_count = $lis.length;
+          var li_width = $lis.outerWidth();
+          var slider_width = $('#slider').width(); //スライダーの幅（初期）
+
+          //スライダーの幅と画像サイズを更新する関数
+          function updateSliderDimension() {
+            slider_width = $('#slider').width(); //スライダーの幅を再取得
+            li_width = slider_width; //各スライドの幅をスライダーの幅と同じに
+
+            $lis.css('width', li_width);
+            $photos.css('width', (li_width * li_count) + 'px'); //スライダー全体の幅を再設定
+
+            //画像サイズをスライダーに合わせて調整
+            $lis.find('img').each(function () {
+              $(this).css({
+                'width': '100%',
+                'height': '100%',
+                'object-fit': 'cover',
+              });
+            });
+          }
+
+          //初回のスライダーの幅と画像サイズ設定
+          updateSliderDimension();
+
+          //ウィンドウリサイズ時にスライダーの幅と画像サイズを再計算
+          $(window).resize(function () {
+            updateSliderDimension();
+          });
+
+          //スライドアニメーションを3秒ごとに実行
+          setInterval(function () {
+            $photos.stop().animate({
+              marginLeft: '-=' + li_width + 'px' //1枚分の幅だけスライド
+            }, 1000, function () {
+              //最初の画像を最後に移動
+              $photos.find('li:first').appendTo($photos);
+              $photos.css('margin-left', '0px');
+            });
+          }, slideInterval);
+        });
+      </script>
+
+    </body>
+
+    <style>
+      #btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+    </style>
+    <button type="button" id="btn">トップへ</button>
+    <!-- 店舗リスト -->
+    <section class="store-list">
+      <h2>店舗一覧</h2>
+      <style>
+        .store-list li {
+          margin: 0.5rem 0;
+          padding: 1rem;
+          background: #ffffff;
+          border: 2px solid #ff5722 !important;
+          /* 枠線の色 */
+          border-radius: 12px;
+          /* 枠線の丸み */
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          /* 少し影を追加 */
+          transition: transform 0.2s;
+          /* ホバー時のアニメーション */
+          text-align: center;
+        }
+
+        .store-list li:hover {
+          transform: translateY(-5px);
+          /* ホバー時に浮き上がる効果 */
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .store-list li a {
+          text-decoration: none;
+          color: #333;
+          font-weight: bold;
+        }
+
+        .store-list li a:hover {
+          color: #ff5722;
+        }
+      </style>
+      <ul>
+        <li><a href="#store1">【徒歩2分】鰻屋だけどカレーが有名⁉金曜日限定150食のカレーライス/うな達</a></li>
+        <li><a href="#store2">【徒歩6分】男女大人気の行列店!味噌ラーメン専門店/麺処花田</a></li>
+        <li><a href="#store3">【徒歩4分】池袋つけ麺No.1。食べログTop5000の大人気店/狸穴</a></li>
+        <li><a href="#store4">【徒歩5分】創業78年の歴史ある油そば店/東京油組総本店 池袋東組</a></li>
+        <li><a href="#store5">【徒歩6分】替え玉2玉無料!コスパ抜群の豚骨ラーメン店/とんこつラーメン 博多風龍 池袋東口店</a></li>
+        <li><a href="#store6">【徒歩3分】池袋でハンバーガーを食べるならここ!!肉厚なパティが特徴/No.18ハンバーガー</a></li>
+        <li><a href="#store7">【徒歩1分】100%ヴィーガン料理とおしゃれな空間が魅力/AIN SOPH.soar IKEBUKURO</a></li>
+        <li><a href="#store8">【徒歩6分】家庭とは一味違う?気軽にふわとろオムライスを食べれるお店/神田たまごけん 池袋WACCA店</a></li>
+        <li><a href="#store9">【徒歩5分】コスパ◎多くの人に愛されるとんかつ屋/とんかつ 二矢</a></li>
+        <li><a href="#store10">【徒歩6分】高級感のある店内でコーヒーを楽しむ/喫茶店 皇琲亭</a></li>
+        <li><a href="index.html"><h1>現在地から近くのお店を検索</h1></a></li>
+      </ul>
+    </section>
+
+    <!-- 店舗詳細情報 -->
+    <section class="store-details">
+      <article id="store1">
+        <style>
+          p {
+            text-align: left;
+          }
+
+          /* 店舗詳細情報 */
+          .store-details {
+            padding: 1rem;
+          }
+
+          footer {
+            background-color: #ffcc80;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+          }
+
+          /* .i_b_i_section 用のスタイル */
+          .i_b_i_section {
+            border: 2px solid #000;
+            /* 黒い枠線 */
+            border-radius: 8px;
+            /* 角を少し丸める */
+            padding: 16px;
+            /* 内側の余白 */
+            margin: 16px 0;
+            /* 上下の余白 */
+            background-color: #fff;
+            /* 背景色を白に設定（必要に応じて変更） */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* 軽い影を追加 */
+          }
+        </style></article></section>
+
+        <h3>うな達</h3>
+        <img src="店舗写真/店舗写真/unatatu1.jpg" alt="うな達の写真" class="border"
+          style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+        <div class="overflow-wrap">
+          <div class="break-word">
+            <p>初めに紹介するのは学校から徒歩2分にある鰻屋「うな達」。池袋駅から学校に向かう道にひっそりとあります。日替わりランチやうな重が人気でお酒やおつまみもあるので、居酒屋のようにご利用もできます。</p>
+          </div>
+        </div>
+        <img src="店舗写真/店舗写真/unatatu.jpg" alt="うな達のカレー写真" class="border"
+          style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+        <div class="overflow-wrap">
+          <div class="break-word">
+            <p>
+              今回紹介するのは毎週金曜日のランチタイムだけ提供される150食限定の「カレーライス」です。開店前には列ができるほどの人気で、人気の理由は家庭的な味と値段です！見た目は家庭的なカレーですが、スパイシーで野菜や肉の旨みを感じれる味なんです！辛味が苦手な人は甘口や卵をトッピングするのがオススメですよ。そんなカレーは並430円、中470円、大500円、特大580円とワンコインでお釣りがくるほどに安いんです！
+            </p>
+          </div>
+        </div>
+        <img src="店舗写真/店舗写真/unatatu2.jpg" alt="うな達のカレー写真" class="border"
+          style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+        <div class="overflow-wrap">
+          <div class="break-word">
+            <p>メインの「うな重 梅」(1800円)は、月曜〜木曜のランチ、もしくは夜の時間に食べられます。蒸し焼きで焼かれた鰻はとても柔らかく、こちらも人気です。他にも曜日ごとにランチメニューが変わるので金曜日以外でも楽しむことができるので是非、足を運んでみてください。
+            </p>
+          </div>
+        </div>
+        <div class="i_b_i_section" data-name_id="1030">
+          <h3><strong>うな達</strong></h3>
+          <br />
+          <p><strong>住所</strong>: 東京都豊島区東池袋1-31-3</p>
+          <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/ng7EpmdXecBbmncGA"
+                target="_blank">Googleマップ</a></strong></p>
+          <p><strong>アクセス</strong>: 東京電子専門学校から徒歩2分</p>
+          <p><strong>電話番号</strong>: 03-3983-0008</p>
+          <p><strong>定休日</strong>: 日曜・祝日</p>
+          <p><strong>営業時間</strong>: 平日11:30～14:00(L.O.13:30)17:00～22:00(L.O.21:30):土曜17:00～22:00(L.O.21:30)</p>
+          <p><strong>予算</strong>: 1～1,000円</p>
+          <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+          <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+          <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13037960/"
+                target="_blank">食べログ</a></strong></p>
+          <p>
+            <iframe frameborder="0" height="300"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.7758512834275!2d139.71357667606898!3d35.731730772571176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d66742f84a9%3A0x13c8168f7a5a6e7d!2z44GG44Gq6YGU!5e0!3m2!1sja!2sjp!4v1736410587534!5m2!1sja!2sjp"
+              width="100%">
+            </iframe>
+          </p>
+        </div>
+      </article>
+
+
+    <article id="store2">
+      <h3>麺処 花田</h3>
+      <img src="店舗写真/店舗写真/hanada2.jpg" alt="麺処花田の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩6分にある「麺処 花田」。ランチの時間は並ぶことが多いので、学生は放課後にいく方がおすすめですよ。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/hanada3.jpg" alt="麺処花田ラーメンの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>一番人気の「味噌ラーメン」(1000円)は、厳選した鳥の部位や豚足、背脂を加えた濃厚味噌スープ。そこに三河屋製麺から特注で作っている歯ごたえ抜群の中太麺が人気の秘訣です。本格的な味噌ラーメンを食べたい人にとてもオススメです。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/hanada1.jpg" alt="麺処花田つけ麺の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            「味噌つけ麺」(1050円)は、ラーメンよりも濃いめのスープで野菜をつけても味が落ちることなく楽しむことができます。熱盛で注文すると冷めるのが遅いのでオススメですよ。無料で野菜とニンニクを増すことができたり他にも辛味噌ラーメンもあるので、是非そちらも食べてみてください。
+          </p>
+        </div>
+      </div>
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>麺処 花田</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-23-8 東池袋ISKビル1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/dVtSWZs2WcRQTz5a8"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 東京電子専門学校から徒歩6分</p>
+        <p><strong>電話番号</strong>: 050-5594-4941</p>
+        <p><strong>定休日</strong>: 年末年始</p>
+        <p><strong>営業時間</strong>: 11:00～22:30</p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13109890/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51806.76598502176!2d139.65002911378102!3d35.752700387210325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d68bc75857f%3A0xb1c187e8c053636!2z6bq65YemIOiKseeUsCDmsaDooovlupc!5e0!3m2!1sja!2sjp!4v1736425861380!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store3">
+      <h3>狸穴</h3>
+      <img src="店舗写真/店舗写真/mamiana2.jpg" alt="狸穴の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩4分にある「狸穴」。池袋駅方面ではないので知らない人も多いですが、食べログの池袋つけ麺ランキングで一位になるほど大人気なんです。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/mamiana1.jpg" alt="狸穴の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>定番メニューの「特製つけ麺 大盛」(1400円)です。濃厚スープですが、くどさや味の飽きが来ることないように甘さと酸味のバランスが取れています。また、スープに負けない歯ごたえのある歯切りの良い麺が相性抜群です。魚粉やチャーシューが多く乗っているのも人気な理由です。
+          </p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/mamiana.jpg" alt="狸穴の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            つけ麺専門店ですが、「特製醤油ラーメン」(1380円)もあります。こちらの醤油ラーメンも他店舗に比べて濃厚でバリエーションの多いチャーシューやトロトロの半熟卵が乗っています。紹介した二つの画像はどちらも特製なのでシンプルにラーメンを楽しみたい人は、特製ではない方でも満足できますよ。
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>狸穴</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-32-2 小川ビル1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/3fa6KQXBKbMtGATo9"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 東京電子専門学校から徒歩4分</p>
+        <p><strong>電話番号</strong>: 03-3982-4055</p>
+        <p><strong>定休日</strong>: 火曜日たまにお休み</p>
+        <p><strong>営業時間</strong>: 月・水・木・金・土 11:00～21:30: 火 11:00～15:30 ※日は21:00まで <br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13101471/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.7411176866544!2d139.71347547606914!3d35.73258487257088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d112096bafb%3A0x965ed39491481ea5!2z54u456m0!5e0!3m2!1sja!2sjp!4v1736426595014!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store4">
+      <h3>東京油組総本店 池袋東組</h3>
+      <img src="店舗写真/店舗写真/abura1.jpg" alt="東京油組総本店 池袋東組の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩5分にある「東京油組総本店 池袋東口」。池袋駅から学校への道にあり、全国各地や海外にまで出店している人気チェーン店です。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/abura2.jpg" alt="東京油組総本店 池袋東組のラーメン写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>看板メニューの「油そば」(880円)です。老舗製麺所から誕生したお店なので、とにかく麺にこだわっています。小麦粉からこだわり、風味と食感を味わえるモチモチ麺とそれに合うように作られた秘伝のタレが絶品です。また、並盛、大盛、W盛どの量を選んでも値段が変わらないのも嬉しいですね。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/abura3.jpg" alt="東京油組総本店 池袋東組のメニュー写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>卓上トッピングだけでなく、沢山のトッピングが充実していて、自分好みのオリジナル油そばを作ることもできます。自分好みの組み合わせを見つけて楽しんでみてください。ビールやおつまみもあるので少しだけ飲んでいきたい時にも利用できますよ。</p>
+        </div>
+      </div>
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>東京油組総本店 池袋東組</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-9-10 ユタカビルB1</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/JXqFp4XN3Wi7YK8K8"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 03-3986-3911</p>
+        <p><strong>定休日</strong>: 無し</p>
+        <p><strong>営業時間</strong>: 11:00～23:30 ※日は23:00まで <br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13149476/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.7939141191987!2d139.71446549999996!3d35.7312866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d66520851ff%3A0x67e40993062e6e83!2z5p2x5Lqs5rK557WE57eP5pys5bqXIOaxoOiii-adsee1hA!5e0!3m2!1sja!2sjp!4v1737595343289!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store5">
+      <h3>とんこつラーメン 博多風龍 池袋東口店</h3>
+      <img src="店舗写真/店舗写真/furyu.jpg" alt="とんこつラーメン 博多風龍の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩6分にある「とんこつラーメン 博多風龍 東池袋店」。都内を中心に9店舗展開していて、学生からビジネスマンまで多くの人に愛されているラーメン店です。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/fuuryu1.jpg" alt="とんこつラーメン 博多風龍の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>とんこつラーメン、辛味噌とんこつラーメン、黒マー油とんこつラーメンとベースが3種類あり、そこからトッピングやセットを選び注文します。ここまで沢山あるとどのメニューを選ぶか迷ってしまいますね。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/furyu_01.jpg" alt="とんこつラーメン 博多風龍の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>定番の「とんこつラーメン」(750円)は、これぞ博多ラーメンと感じるような細麵にクセの無い食べやすいとんこつスープです。ここに替え玉が2玉無料で付いてくるのです！学生や社会人にとって値段と量で満足できる一品です。
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>とんこつラーメン 博多風龍 池袋東口店</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-8-6 浅野ビル1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/yhQULLpQX54E4Zo47"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 03-3988-4646</p>
+        <p><strong>定休日</strong>: 無し</p>
+        <p><strong>営業時間</strong>: 11:00～02:00 ※日は20:00まで <br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: QRコード可（カード、電子マネー）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13155302/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25910.139108611904!2d139.69628695856318!3d35.73193887237383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d67033287bf%3A0xf7d59787df650a0d!2z44Go44KT44GT44Gk44Op44O844Oh44OzIOWNmuWkmumiqOm-jSDmsaDooovmnbHlj6Plupc!5e0!3m2!1sja!2sjp!4v1737595229401!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store6">
+      <h3>No.18</h3>
+      <img src="店舗写真/店舗写真/no182.jpg" alt="No.18ハンバーガーの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩3分にある「No.18」。食べログのハンバーガー百名店に５度も選出されている大人気ハンバーガー店です。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/no183.jpg" alt="No.18ハンバーガーの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            8種類のバーガーがあり、+200円でポテトを注文できます。このサイトの中では少し値段が高いですが、本格的なハンバーガーを味わうことができます。また店内にはカウンター席もあり、一人利用しやすい雰囲気になっているのもありがたいですね。
+          </p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/no181.jpg" alt="No.18ハンバーガーの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            今回紹介するのは「ベーコンチーズバーガー」(1800円)です。焼きたてバンズにパティのジューシーさを一口で感じることができます。そこに食べやすい硬さのベーコンにトロトロチーズが相性抜群です。アクセントにオレンジマスタードを使用し、ほのかな酸味と甘味がまとめてくれています。パティの焼き加減を選ぶことができるのですがオススメはミディアムレアですよ！
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>No.18</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋2-57-2 コスモ東池袋105</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/WWV81QR3KE41LLEU7"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 03-6914-3718</p>
+        <p><strong>定休日</strong>: 火曜日</p>
+        <p><strong>営業時間</strong>: 11:00～16:00（L.O.15:00）<br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13172081/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.716068279892!2d139.71534717636953!3d35.73320082711629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d6417646d4f%3A0x77409943abf0144!2zTm8uMTjjg4_jg7Pjg5Djg7zjgqzjg7w!5e0!3m2!1sja!2sjp!4v1737594803836!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store7">
+      <h3>AIN SOPH.soar IKEBUKURO</h3>
+      <img src="店舗写真/店舗写真/ain2.jpg" alt="AIN SOPH.soarの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩1分にある「AINSOPH.soar」。学校の真横にあり、100%ヴィーガンの料理を提供していています。また公式サイトからネット注文や少人数のパーティー利用、バースデープレートも可能です。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/ain1.jpg" alt="AIN SOPH.soarの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            今回紹介するのは「チリビーンズバーガーセット」(2100円)です。ヴィーガンなのにハンバーガー？と疑問を抱く人も多いと思いますが、パティに肉は使われていないんです！それなのに食べ応えのあるパティにチリソースが相性抜群です。ヴィーガンの枠に捉われないかつ、ヘルシーなのが人気の理由なんです。
+          </p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/ain3.jpg" alt="AIN SOPH.soarの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            アインソフ定番メニューの「天上のヴィーガンパンケーキ」(1760円)です。卵や乳製品を使っていないパンケーキなんです。使わなくてもパンケーキを作れることに驚きました（笑）。ボソッとしているかと思いきや、ふわふわで弾力あるモチモチパンケーキなんです。フルーツやアイスがたっぷり付いていてこちらも人気ですよ！
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>AIN SOPH.soar IKEBUKURO</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋3-5-7 ユニオンビルディング 1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/XEcg5AXuaWBhwXeD7"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 050-5872-9998</p>
+        <p><strong>定休日</strong>: 不定休</p>
+        <p><strong>営業時間</strong>: 11:30～16:00（L.O.15:00）18:00～21:00（L.O.20:00）<br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: カード、QRコード可（電子マネー不可）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13164224/"
+              target="_blank">食べログ</a></strong></p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.7894164494146!2d139.7170927!3d35.73139719999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d65e4300001%3A0x511d0507d7bde678!2sAIN%20SOPH.%20soar%20IKEBUKURO!5e0!3m2!1sja!2sjp!4v1737594898219!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+    
+    <article id="store8">
+      <h3>神田たまごけん 池袋WACCA店</h3>
+      <img src="店舗写真/店舗写真/omu1.jpg" alt="神田たまごけんの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩6分にある「神田たまごけん 池袋WACCA店」。学校から池袋駅の帰り道でよく目にすると思います。カウンターもあり一人でも入りやすくなっています。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/omu3.jpg" alt="神田たまごけんの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            紹介するのは定番メニューの「トマト&ハヤシオム」(990円)です。ボリューミーなライスの上にふわとろ卵が乗っています。そこのトマトソースとハヤシソースがかかっているので味変を楽しむことができます。スープやサラダがおかわり自由なのがありがたいですね！
+          </p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/omu2.jpg" alt="神田たまごけんの写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            次に池袋WACCA店限定メニューの「牛すじカレー&炙りチーズオム」(1290円)です。ふわとろオムライスにとろとろの牛すじを煮込んだカレーが相性抜群です。チーズ有り無しを選ぶことができるのですが炙りチーズは特にオススメです！他にもトッピングの乗ったメニューが沢山あるので是非足を運んでみてください！
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>神田たまごけん 池袋WACCA店</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-8-1 WACCA池袋 1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/z1yni28FsEi7C9Au6"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 無し</p>
+        <p><strong>定休日</strong>: 無し</p>
+        <p><strong>営業時間</strong>: 11:00～21:00 ※情勢による営業時間の変更あり<br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: QRコード決済可（カード、電子マネー不可）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13259864/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.780615165905!2d139.71193897636974!3d35.73161362720366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188df7329d3863%3A0xb751cd51a326e6af!2z56We55Sw44Gf44G-44GU44GR44KTIOaxoOiii1dBQ0NB5bqX!5e0!3m2!1sja!2sjp!4v1737594966858!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store9">
+      <h3>とんかつ 二矢</h3>
+      <img src="店舗写真/店舗写真/fumiya1.jpg" alt="とんかつ 二矢の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>次に紹介するのは、学校から徒歩5分にある「とんかつ 二矢」。店内は１人でも入りやすい、落ち着いた雰囲気でお客さんが帰るたびすぐに席が埋まり、最後までほぼ空きが出ないほどの人気店。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/fumiya3.jpg" alt="とんかつ 二矢の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>かつ丼にかつ煮定食にとんかつにかつカレーと沢山のメニューがあり、このメニューの種類の豊富さに沢山の人から支持されています。。未だにメニューは増えているそうですよ。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/fumiya2.jpg" alt="とんかつ 二矢の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>
+            その中でも紹介するのは「名物ふみやかつ丼」(638円)です。カラッと揚がったサクサクのかつに王道のタレをかけた一品。お味噌汁や漬物も付いているのにこの価格は嬉しいですね。他にも、こだわりの桃豚を使ったとんかつもあるのでそちらも是非食べてみてください。
+          </p>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>とんかつ 二矢</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋2-62-10</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/on1tJYW36wtk1waN7"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 03-6384-7117</p>
+        <p><strong>定休日</strong>: 日曜日</p>
+        <p><strong>営業時間</strong>: 11:00～21:00（L.O.21:00）<br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: カード、電子マネー、QRコード可</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13284410/"
+              target="_blank">食べログ</a></strong></p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.6831106704426!2d139.7144726763446!3d35.73401122707201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188dc7e239ba67%3A0x62a1a5430315c116!2z44GL44Gk5Li8IOOBqOOCk-OBi-OBpOS6jOefog!5e0!3m2!1sja!2sjp!4v1737595031050!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <article id="store10">
+      <h3>喫茶店 皇琲亭</h3>
+      <img src="店舗写真/店舗写真/kohitei1.jpg" alt="喫茶店 皇琲亭の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>最後に紹介するのは、学校から徒歩6分にある「喫茶店 皇琲亭」。池袋駅からも近く、東京ディズニーランドの開業と同じ1983年から創業41年も続く老舗喫茶店です。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/kohitei4.jpg" alt="喫茶店 皇琲亭の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <p>店内はとても落着きにある雰囲気で珈琲に集中したり、リラックスすることができます。前までは喫煙可だったのですが、今は全席禁煙になっているので、タバコを吸われる人は注意してください。</p>
+        </div>
+      </div>
+      <img src="店舗写真/店舗写真/kohitei3.jpg" alt="喫茶店 皇琲亭の写真" class="border"
+        style="width: 100%; max-width: 500px; height: 400px; object-fit: cover; display: block; margin: 0 auto;">
+      <div class="overflow-wrap">
+        <div class="break-word">
+          <P>今回紹介するのは「スマトラマンデリン」(790円)です。珈琲の卸しを行う山下コーヒー社の直営店であり、珈琲の価格は安くはありません。ですが、中々味わうことができない希少な豆を淹れたてで味わうことができます。他にもこだわりの詰まったケーキもあるので、放課後やアフタヌーンティー、一息つきたい時に寄ってみてください。
+          </P>
+        </div>
+      </div>
+
+      <div class="i_b_i_section" data-name_id="1030">
+        <h3><strong>喫茶店 皇琲亭</strong></h3>
+        <br />
+        <p><strong>住所</strong>: 東京都豊島区東池袋1-7-2 東駒ビル 1F</p>
+        <p><strong>マップ</strong>: <strong><a href="https://maps.app.goo.gl/nHA87CLyj3iH6DWi8"
+              target="_blank">Googleマップ</a></strong></p>
+        <p><strong>アクセス</strong>: 各線&nbsp;池袋東口から徒歩1分</p>
+        <p><strong>電話番号</strong>: 03-3985-6395</p>
+        <p><strong>定休日</strong>: 不定休</p>
+        <p><strong>営業時間</strong>: 11:00～22:30（L.O.22:00）<br /></p>
+        <p><strong>予算</strong>: 1,000～2,000円</p>
+        <p><strong>キャッシュレス決済</strong>: 不可（支払いは現金のみ）</p>
+        <p><strong>禁煙・喫煙</strong>: 全席禁煙</p>
+        <p><strong>予約サイト・口コミ・クーポン</strong>: <strong><a href="https://tabelog.com/tokyo/A1305/A130501/13003947/"
+              target="_blank">食べログ</a></strong>(予約不可)</p>
+        <p>
+          <iframe frameborder="0" height="300"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12954.728976687851!2d139.70674786932173!3d35.73403253332745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d67abf3d295%3A0x9bc0ec84cd4f75b9!2z5Zar6Iy25bqXIOeah-eQsuS6rQ!5e0!3m2!1sja!2sjp!4v1737595097937!5m2!1sja!2sjp"
+            width="100%"></iframe>
+        </p>
+      </div>
+    </article>
+
+    <!-- 他の店舗情報もここに追加 -->
+
+    </section>
+  </main>
+
+  <footer>
+    <p style="text-align: center"><h4>※本記事内の情報は2025年01月30日時点のものです。掲載情報や値段は現在と異なる場合がありますので、事前にご確認ください。<br>
+      ※本記事中の金額表示は、税抜表記のないものはすべて税込です。</h4>
+    </p>
+  </footer>
+</body>
+
+</html>
